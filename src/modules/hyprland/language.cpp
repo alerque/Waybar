@@ -36,6 +36,7 @@ Language::~Language() {
 auto Language::update() -> void {
   std::lock_guard<std::mutex> lg(mutex_);
 
+
   spdlog::debug("hyprland language update with full name {}", layout_.full_name);
   spdlog::debug("hyprland language update with short name {}", layout_.short_name);
   spdlog::debug("hyprland language update with short description {}", layout_.short_description);
@@ -128,7 +129,7 @@ auto Language::getLayout(const std::string& fullName) -> Layout {
     const auto* descriptionPtr = rxkb_layout_get_brief(layout);
     std::string description = descriptionPtr == nullptr ? "" : std::string(descriptionPtr);
 
-    Layout info = Layout{nameOfLayout, name, variant, description};
+    Layout info = Layout{layout, name, variant, description};
 
     rxkb_context_unref(context);
 
